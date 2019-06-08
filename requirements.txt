@@ -1,0 +1,4 @@
+colorama
+win32crypt
+tqdm
+sqlite3
