@@ -11,7 +11,9 @@ Generate the executable, Execute and the Google Chrome "Login Data" file of that
   - pywin32
   - tqdm
   - sqlite3
-2. GCC/Mingw
+2. GCC/Mingw.
+
+
 ( Can also be run on linux using Wine ) 
 ```css
 git clone https://github.com/lynxmk/orphicmeta.git
